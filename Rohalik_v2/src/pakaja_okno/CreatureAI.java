@@ -9,6 +9,10 @@ public class CreatureAI {
     }
 
     public void onEnter(int x, int y, Kletki kletki) { }
+    
+    public void onUpdate(){
+	}
 }
+
 
 

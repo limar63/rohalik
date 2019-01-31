@@ -1,6 +1,9 @@
 package pakaja_okno;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 //класс где эти клетки хран€тс€
@@ -16,6 +19,7 @@ public class World {
         this.kletki = kletki;
         this.width = kletki.length;
         this.height = kletki[0].length;
+        this.creatures = new ArrayList<Creature>();
 	}
 	
 	//ѕроверка на Out of Bounds и обозначение цвета/глифа дл€ отображени€
@@ -40,16 +44,39 @@ public class World {
 
 	
 	public void addAtEmptyLocation(Creature creature){
-	    int x;
+		int x;
 	    int y;
-
+	  
 	    do {
 	        x = (int)(Math.random() * width);
 	        y = (int)(Math.random() * height);
-	    }
-	    while (!kletki(x,y).isGround());
-
+	    } 
+	    while (!kletki(x,y).isGround() || creature(x,y) != null);
+	  
 	    creature.x = x;
 	    creature.y = y;
+	    creatures.add(creature);
 	}
+	
+	private List<Creature> creatures;
+
+	public Creature creature(int x, int y){
+		for (Creature c : creatures){
+			if (c.x == x && c.y == y)
+				return c;
+		}
+		return null;
+	}
+	
+    public void remove(Creature other) {
+        creatures.remove(other);
+    }
+    
+    //очередь дл€ монстра что-то сделать
+    public void update(){
+        List<Creature> toUpdate = new ArrayList<Creature>(creatures);
+        for (Creature creature : toUpdate){
+            creature.update();
+        }
+    }
 }
