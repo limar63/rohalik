@@ -50,9 +50,13 @@ public class PlayScreen implements Ekran {
 		
 		displayTiles(terminal, left, top);
 		
+		
 		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 		
 		terminal.writeCenter("-- press [escape] to lose or [enter] to win --", 22);
+		
+		String stats = String.format(" %3d/%3d hp", player.hp(), player.maxHp());
+	    terminal.write(stats, 1, 23);
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
